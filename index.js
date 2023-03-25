@@ -1,3 +1,7 @@
+
+const topFilms = require('./topFilm.js');
+
+uuid = require('uuid');
 const express = require('express');
 var morgan = require('morgan');
 var fs = require('fs'); // import built in node modules fs and path 
@@ -13,49 +17,6 @@ var methodOverride = require('method-override');// needed for err handlr
 // setup the logger
 app.use(morgan('combined', {stream: accessLogStream}));
 
-// favorite films
-let topfilms = [
-  {
-    title: 'Rosemary’s Baby',
-    director: 'Roman Polanski'
-  },
-  {
-    title: 'The Godfather',
-    director: 'Francis Ford Coppola'
-  },
-  {
-    title: 'The Big Lebowski',
-    director: 'Joel Coen'
-  },
-  {
-    title: 'El secreto de tus hojos',
-    director: 'Juan José Campanella'
-  },
-  {
-    title: 'Goodfellas',
-    director: 'Martin Scorsese '
-  },
-  {
-    title: 'Cidade de Deus ',
-    director: 'Fernando Meirelles y Kátia Lund'
-  },
-  {
-    title: 'Lock, Stock and Two Smoking Barrels',
-    director: 'Guy Ritchie'
-  },
-  {
-    title: 'La comunidad',
-    director: 'Álex de la Iglesia '
-  },
-  {
-    title: 'Psycho',
-    director: 'Alfred Hitchcock'
-  },
-  {
-    title: 'Pulp Fiction',
-    director: 'Quentin Tarantino'
-  },
-];
 
 app.use(express.static('public'));
 
@@ -66,9 +27,28 @@ app.get('/documentation.html', (req, res) => {
   res.sendFile('documentation.html');
 });
 
+//get all movies titles
+
+let titles = [];
 app.get('/movies', (req, res) => {
-  res.json(topfilms);
+  topFilms.topFilms.forEach((item)=> titles.push(item.title));
+  res.json(titles);
 });
+
+//get all data of a specific movie by title
+
+
+
+//get all data of a specific movie by genre
+
+
+//get all data of a specific movie by director and or/ actors
+
+
+//create new user and user own list
+
+
+
 
 // error hadlr
 
