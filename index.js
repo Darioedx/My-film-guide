@@ -1,5 +1,5 @@
 
-const topFilms = require('./topFilm.js');
+const topFilms = require('./topFilm.js');// import my coustom module
 
 uuid = require('uuid');
 const express = require('express');
@@ -36,9 +36,10 @@ app.get('/movies', (req, res) => {
 });
 
 //get all data of a specific movie by title
-
-
-
+app.get('/movies/:title', (req, res) => {
+  res.json(topFilms.topFilms.find((movie) =>
+    { return movie.title=== req.params.title }));
+});
 //get all data of a specific movie by genre
 
 
