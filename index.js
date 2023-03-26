@@ -17,9 +17,12 @@ var methodOverride = require('method-override');// needed for err handlr
 // setup the logger
 app.use(morgan('combined', {stream: accessLogStream}));
 
-
+//
 app.use(express.static('public'));
-
+app.use(bodyParser.json());
+app.use(methodOverride());
+//
+//main
 app.get('/', (req, res) => {
     res.send('Welcome to my app!');;
 });
@@ -27,26 +30,43 @@ app.get('/documentation.html', (req, res) => {
   res.sendFile('documentation.html');
 });
 
-//get all movies titles
-
+//get movies titles list
 let titles = [];
 app.get('/movies', (req, res) => {
   topFilms.topFilms.forEach((item)=> titles.push(item.title));
-  res.json(titles);
+  res.status(200).json(titles);
+  //res.json(titles);
+  
 });
 
-//get all data of a specific movie by title
+//get all data of a specific movie search by title
 app.get('/movies/:title', (req, res) => {
-  res.json(topFilms.topFilms.find((movie) =>
-    { return movie.title=== req.params.title }));
-});
-//get all data of a specific movie by genre
+  const {title}= req.params;
+  const movieData = topFilms.topFilms.find((movie )=> movie.title === title);
 
+  if (movieData){
+     return res.status(200).json(movieData);
+      
+    }
+    else{
+       res.status(400).send("NOT FOUND in my top 10!!!!");
+    }
+    });
+
+//get list of movies of a particular genre
+app.get('/movies/genres/:genreName', (req, res) => {
+
+  res.send('Successful GET request returning list of movies that match with the requested genre');
+  
+    });
 
 //get all data of a specific movie by director and or/ actors
+app.get('/movies/directors/:directorName', (req, res) => {
 
+  res.send('Successful GET request returning list of movies that match with the requested director');
+  
+    });
 
-//create new user and user own list
 
 
 
@@ -57,8 +77,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(bodyParser.json());
-app.use(methodOverride());
+
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -4,22 +4,25 @@ exports.topFilms = [
     {
       id: 0,
       title: 'Rosemary’s Baby',
-      director: 'Roman Polanski'
+      director: 'Roman Polanski',
+      Genre:"Biography, Crime, Drama"
     },
     {
       id: 1,
       title: 'The Godfather',
-      director: 'Francis Ford Coppola'
+      director: 'Francis Ford Coppola',
+      Genre:"Biography, Crime, Drama"
     },
     {
       id: 2,
       title: 'The Big Lebowski',
-      director: 'Joel Coen'
+      director: 'Joel Coen',
+      Genre:"Biography, Crime, Drama"
     },
     {
       id: 3,
       title: 'El secreto de tus hojos',
-      director: 'Juan José Campanella'
+      director: 'Juan José Campanella',
     },
     {
       id: 4,
@@ -31,27 +34,32 @@ exports.topFilms = [
     {
       id: 5,
       title: 'Cidade de Deus ',
-      director: 'Fernando Meirelles y Kátia Lund'
+      director: 'Fernando Meirelles y Kátia Lund',
+      Genre:"Biography, Crime, Drama"
     },
     {
       id: 6,
       title: 'Lock, Stock and Two Smoking Barrels',
-      director: 'Guy Ritchie'
+      director: 'Guy Ritchie',
+      Genre:"Biography, Crime, Drama"
     },
     {
       id: 7,
       title: 'La comunidad',
-      director: 'Álex de la Iglesia '
+      director: 'Álex de la Iglesia',
+      Genre:"Biography, Crime, Drama"
     },
     {
       id: 8,
       title: 'Psycho',
-      director: 'Alfred Hitchcock'
+      director: 'Alfred Hitchcock',
+      Genre:"Biography, Crime, Drama"
     },
     {
       id: 9,
       title: 'Pulp Fiction',
-      director: 'Quentin Tarantino'
+      director: 'Quentin Tarantino',
+      Genre:"Biography, Crime, Drama"
     },
   ];
   exports.users = [
