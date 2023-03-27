@@ -22,13 +22,6 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(methodOverride());
 //
-//main
-app.get('/', (req, res) => {
-    res.send('Welcome to my app!');;
-});
-app.get('/documentation.html', (req, res) => {
-  res.sendFile('documentation.html');
-});
 
 //get movies titles list
 let titles = [];
@@ -67,9 +60,19 @@ app.get('/movies/directors/:directorName', (req, res) => {
   
     });
 
+//create new user 
+app.post('/users', function(req, res){
+  //name:"",
+  //movie:"",
+  //id:""
+  res.send("recieved your request!!!!!!");
+});
+//update user movie
 
-
-
+  
+  //{+=movie:"",}
+  
+ 
 
 // error hadlr
 

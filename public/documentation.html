@@ -25,5 +25,48 @@
         <li>Allow users to remove a movie from their list of favorites</li>
         <li>Allow existing users to deregister</li>
     </ul>
+    <table>
+        <tr>
+          <th>Business logic  </th>
+          <th>URL  </th>
+          <th>HTTP Method  </th>
+          <th>Request body data format  </th>
+          <th>Response body data format  </th>
+        </tr>
+        <tr>
+          <td>get list of movies  </td>
+          <td>/movies  </td>
+          <td>GET  </td>
+          <td>None  </td>
+          <td style="font-size:smaller;">a JSON object holding data about all the movies in db, from here only 
+            the titles will be taken and pass to a new JSON object,example:<br> 
+            1:	"The Godfather"<br>
+            2:	"The Big Lebowski"<br>
+            3:	"El secreto de tus hojos"<br>
+            4:	"Goodfellas"<br>
+            5:	"Cidade de Deus "<br>
+            6:	"Lock, Stock and Two Smoking Barrels"<br>
+            7:	"La comunidad"<br>
+            8:	"Psycho"<br>
+            9:	"Pulp Fiction"<br>
+        </td>
+        </tr>
+        <tr>
+          <td>get list of single movie</td>
+          <td>/movies/[title]  </td>
+          <td>GET  </td>
+          <td>None  </td>
+          <td> a JSON object holding a complte data about a specific movie example:
+            id: 4,
+            title: 'Goodfellas',
+            director: 'Martin Scorsese ',
+            Genre:"Biography, Crime, Drama",
+            Plot: "The story of Henry Hill and his life in the mob, coTommy DeVito .....",
+            Actors:"Robert De Niro, Ray Liotta, Joe Pesci",
+            Poster:"https://m.media-amazon.com/images/M/MV5BY2NkZjEzMDgtN2RjYy00YzM1LWI4ZmQtMjIwYjFjNmI3ZGEwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+          </td>
+        </tr>
+      </table>
+      
 </body>
 </html>
