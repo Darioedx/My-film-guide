@@ -223,3 +223,7 @@
 ::ffff:127.0.0.1 - - [27/Mar/2023:06:53:04 +0000] "POST /users HTTP/1.1" 200 27 "http://localhost:8080/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0"
 ::ffff:127.0.0.1 - - [27/Mar/2023:06:57:36 +0000] "POST /users HTTP/1.1" 200 27 "http://localhost:8080/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0"
 ::ffff:127.0.0.1 - - [27/Mar/2023:06:59:02 +0000] "POST /users HTTP/1.1" 200 27 "http://localhost:8080/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0"
+::ffff:127.0.0.1 - - [28/Mar/2023:08:48:46 +0000] "GET / HTTP/1.1" 200 519 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0"
+::ffff:127.0.0.1 - - [28/Mar/2023:08:48:46 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:8080/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0"
+::ffff:127.0.0.1 - - [28/Mar/2023:08:48:53 +0000] "GET /movies HTTP/1.1" 200 185 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0"
+::ffff:127.0.0.1 - - [28/Mar/2023:08:49:03 +0000] "GET /movies/Lock,%20Stock%20and%20Two%20Smoking%20Barrels HTTP/1.1" 200 309 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0"
