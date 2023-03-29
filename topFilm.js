@@ -99,25 +99,18 @@ exports.topFilms = [
     {
       id: 1,
       name: 'Jessica Drake',
-      classes: {
-        biology: 95,
-        algebra: 92
-      }
+      movieList : ['The Front',]
     },
     {
       id: 2,
       name: 'Ben Cohen',
-      classes: {
-        biology: 95,
-        algebra: 92
-      }
+      movieList : []
+      
     },
     {
       id: 3,
       name: 'Lisa Downing',
-      classes: {
-        biology: 95,
-        algebra: 92
-      }
+      movieList : []
+     
     }
   ];

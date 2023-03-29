@@ -65,12 +65,53 @@ app.post('/users', function(req, res){
   //name:"",
   //movie:"",
   //id:""
-  res.send("recieved your request!!!!!!");
-});
-//update user movie
+  
+  const newUser = req.body;
+  if (newUser.name){
+   newUser.id= uuid.v4();
+   return res.status(201).json(newUser); 
+
+  }
+  });
 
   
-  //{+=movie:"",}
+//update user info
+app.put('/users/:id', function(req, res){
+  //name:"",
+    //id:""
+  const {id}= req.params;  
+  const newName = req.body;
+  let user = topFilms.users.find((user)=> user.id == id);//diferente data type, ojo!!
+  if (user.id){
+   user.name = newName.name ;
+   return res.status(200).json(user); 
+
+  }
+  });
+  //add movie title to user list
+  app.put('/users/mymovies/:id', function(req, res){
+   
+    const {id}= req.params;
+    const newTopfilm = req.body;//buscar user, buscar peli, agregar peli
+    let user = topFilms.users.find((user)=> user.id == id);//diferente data type, ojo!!primero encuentro usuario
+    if (user){
+     user.movieList.push(newTopfilm.title);
+    // return res.status(200).json(user); 
+     return res.status(200).send(`${newTopfilm.title} have been added to uuser ${id}`); 
+  
+    }
+    });
+//remove movie
+app.delete('/users/mymovies/:id/:movieTitle', function(req, res){
+   
+  const {id, movieTitle}= req.params;
+ 
+  let user = topFilms.users.find((user)=> user.id == id);//diferente data type, ojo!!primero encuentro usuario
+ 
+  
+  
+  });
+  
   
  
 
