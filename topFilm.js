@@ -99,7 +99,7 @@ exports.topFilms = [
     {
       id: 1,
       name: 'Jessica Drake',
-      movieList : ['The Front',]
+      movieList : ['The Front']
     },
     {
       id: 2,

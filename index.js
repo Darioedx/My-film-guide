@@ -1,5 +1,5 @@
 
-const topFilms = require('./topFilm.js');// import my coustom module
+let topFilms = require('./topFilm.js');// import my coustom module
 
 uuid = require('uuid');
 const express = require('express');
@@ -107,10 +107,29 @@ app.delete('/users/mymovies/:id/:movieTitle', function(req, res){
   const {id, movieTitle}= req.params;
  
   let user = topFilms.users.find((user)=> user.id == id);//diferente data type, ojo!!primero encuentro usuario
+  if (user){
+      user.movieList = user.movieList.filter((movie)=> movie !== movieTitle);
+      return res.status(200).send(`${movieTitle} have been removed from user ${id}`); 
+
+  }
+    
+});
+//Delete user
+app.delete('/users/:id', function(req, res){
+   
+  const {id}= req.params;
  
+  let user = topFilms.users.find((user)=> user.id == id);//diferente data type, ojo!!primero encuentro usuario
+  if (user){
+      topFilms.users = topFilms.users.filter((user)=> user.id != id);
+      return res.status(200).send(`User ${id} have been deleted`); 
+
+  }
+    
+});
+     
   
   
-  });
   
   
  
