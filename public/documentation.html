@@ -33,7 +33,7 @@
           <th>Request body data format  </th>
           <th>Response body data format  </th>
         </tr>
-        <tr>
+        <tr style="background-color: aquamarine;">
           <td>get list of movies  </td>
           <td>/movies  </td>
           <td>GET  </td>
@@ -65,30 +65,25 @@
             Poster:"https://m.media-amazon.com/images/M/MV5..........._V1_SX300.jpg",<br>
           </td>
         </tr>
-        <tr>
-          <td>returning  movies that match with the requested genre</td>
+        <tr style="background-color: aquamarine;">
+          <td>get movies that match requested genre</td>
           <td>/movies/genres/[genreName]  </td>
           <td>GET  </td>
           <td>None  </td>
-          <td style="font-size:smaller;"> a array of  JSON object holding a data about movies that match requested genre:<br>
+          <td style="font-size:smaller; "> a array of  JSON object holding data about movies that match requested genre:<br>
            [     {
                      id: 7,<br>
                      title: 'La comunidad',<br>
                      director: 'Álex de la Iglesia',<br>
                      genre: 'Comedy/Crime',<br>
-                     year: 2000,<br>
-                     plot: 'A group of neighbors find a large amount of money in an apartment and .......',<br>
-                     actors: ['Carmen Maura', 'Eduardo Antuña', 'Jesús Bonilla', 'Terele Pávez']
+                     .........
                   },<br>
                   {
                     id: 2,<br>
                     title: 'The Big Lebowski',<br>
                     director: 'Joel Coen',<br>
                     genre: 'Comedy/Drama',<br>
-                    year: 1998,<br>
-                    plot: 'The Dude, a slacker in Los Angeles, is mistaken for....... .',<br>
-                    actors: ['Jeff Bridges', 'John Goodman', 'Julianne Moore']
-                  },
+                    .......}
             ]<br>
 
           </td>
@@ -98,11 +93,20 @@
           <td>/movies/directors/[directorName]  </td>
           <td>GET  </td>
           <td>None  </td>
-          <td style="font-size:smaller;"> a JSON object holding a bio data about a specific director, example:<br>
+          <td style="font-size:smaller;"> a JSON object holding bio data about a specific director, example:<br>
             {director: 'Martin Scorsese ',<br>
             biography:'bio, birth year, death year, filmography'}
           </td>
         </tr>
+        <tr style="background-color: aquamarine;">
+          <td> Allow new users to register</td>
+          <td>/users </td>
+          <td>POST  </td>
+          <td>JSON object holding data about new user </td>
+          <td style="font-size:smaller;">a JSON object holding all movies titles in data base ,example:<br> 
+            { name:	"pepe"<br>
+              id:	"u8ugytanfkgg8g"}<br>
+          </td >
       </table>
       
 </body>
