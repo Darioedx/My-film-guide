@@ -102,12 +102,42 @@
           <td> Allow new users to register</td>
           <td>/users </td>
           <td>POST  </td>
-          <td>JSON object holding data about new user </td>
-          <td style="font-size:smaller;">a JSON object holding all movies titles in data base ,example:<br> 
-            { name:	"pepe"<br>
-              id:	"u8ugytanfkgg8g"}<br>
+          <td style="font-size:smaller;">JSON object holding data about new user to add<br>
+            { name:	"pepe",<br>
+              lastname:"gonzales"}
+           </td>
+          <td style="font-size:smaller;">a JSON object holding full data about the new user ,example:<br> 
+            { name:	"pepe",<br>
+            lastname:"gonzales"<br>
+            id:	"u8ugytanfkgg8g",<br>
+            favMovies:["...",]}
           </td >
+          <tr>
+            <td> Allow user change name and lastname</td>
+            <td>/users/[id] </td>
+            <td>PUT </td>
+            <td style="font-size:smaller;">JSON object holding data about new name to be changed<br>
+              { name:	"pepenew",<br>
+                lastname:"gonzalesnew"}
+             </td>
+            <td style="font-size:smaller;">a JS holding user new name, text indicating succeed,example:<br> 
+              "Name and lastname have been changed!!!"<br>
+              { name:	"pepennew",<br>
+               lastname:"gonzalesnew"}
+            </td >
+            <tr style="background-color: aquamarine;">
+              <td> Allow user add movie to favorits</td>
+              <td>/users/mymovies/[id] </td>
+              <td>PUT </td>
+              <td style="font-size:smaller;">JSON object holding data about new name to be changed<br>
+                { favMovies:	"El secreto de tus ojos",}<br>
+                 
+               </td>
+              <td style="font-size:smaller;"> text indicating succeed,example:<br> 
+                " ¡¡¡'El secreto de tus ojos' have been added!!!"<br>
+               
+              </td >
       </table>
-      
+   <br><br><br>   
 </body>
 </html>
