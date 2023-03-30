@@ -25,7 +25,7 @@
         <li>Allow users to remove a movie from their list of favorites</li>
         <li>Allow existing users to deregister</li>
     </ul>
-    <table>
+    <table style="text-align: center; margin: 0 auto;">
         <tr>
           <th>Business logic  </th>
           <th>URL  </th>
@@ -38,8 +38,7 @@
           <td>/movies  </td>
           <td>GET  </td>
           <td>None  </td>
-          <td style="font-size:smaller;">a JSON object holding data about all the movies in db, from here only 
-            the titles will be taken and pass to a new JSON object,example:<br> 
+          <td style="font-size:smaller;">a JSON object holding all movies titles in data base ,example:<br> 
             1:	"The Godfather"<br>
             2:	"The Big Lebowski"<br>
             3:	"El secreto de tus hojos"<br>
@@ -49,21 +48,59 @@
             7:	"La comunidad"<br>
             8:	"Psycho"<br>
             9:	"Pulp Fiction"<br>
-        </td>
+        </td >
         </tr>
         <tr>
-          <td>get list of single movie</td>
+          <td>get specific movie data</td>
           <td>/movies/[title]  </td>
           <td>GET  </td>
           <td>None  </td>
-          <td> a JSON object holding a complte data about a specific movie example:
-            id: 4,
-            title: 'Goodfellas',
-            director: 'Martin Scorsese ',
-            Genre:"Biography, Crime, Drama",
-            Plot: "The story of Henry Hill and his life in the mob, coTommy DeVito .....",
-            Actors:"Robert De Niro, Ray Liotta, Joe Pesci",
-            Poster:"https://m.media-amazon.com/images/M/MV5BY2NkZjEzMDgtN2RjYy00YzM1LWI4ZmQtMjIwYjFjNmI3ZGEwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+          <td style="font-size:smaller;"> a JSON object holding a complte data about a specific movie, example:<br>
+            id: 4,<br>
+            title: 'Goodfellas',<br>
+            director: 'Martin Scorsese ',<br>
+            Genre:"Biography, Crime, Drama",<br>
+            Plot: "The story of Henry Hill and his life in the mob, coTommy DeVito .....",<br>
+            Actors:"Robert De Niro, Ray Liotta, Joe Pesci",<br>
+            Poster:"https://m.media-amazon.com/images/M/MV5..........._V1_SX300.jpg",<br>
+          </td>
+        </tr>
+        <tr>
+          <td>returning  movies that match with the requested genre</td>
+          <td>/movies/genres/[genreName]  </td>
+          <td>GET  </td>
+          <td>None  </td>
+          <td style="font-size:smaller;"> a array of  JSON object holding a data about movies that match requested genre:<br>
+           [     {
+                     id: 7,<br>
+                     title: 'La comunidad',<br>
+                     director: 'Álex de la Iglesia',<br>
+                     genre: 'Comedy/Crime',<br>
+                     year: 2000,<br>
+                     plot: 'A group of neighbors find a large amount of money in an apartment and .......',<br>
+                     actors: ['Carmen Maura', 'Eduardo Antuña', 'Jesús Bonilla', 'Terele Pávez']
+                  },<br>
+                  {
+                    id: 2,<br>
+                    title: 'The Big Lebowski',<br>
+                    director: 'Joel Coen',<br>
+                    genre: 'Comedy/Drama',<br>
+                    year: 1998,<br>
+                    plot: 'The Dude, a slacker in Los Angeles, is mistaken for....... .',<br>
+                    actors: ['Jeff Bridges', 'John Goodman', 'Julianne Moore']
+                  },
+            ]<br>
+
+          </td>
+        </tr>
+        <tr>
+          <td>get director biography</td>
+          <td>/movies/directors/[directorName]  </td>
+          <td>GET  </td>
+          <td>None  </td>
+          <td style="font-size:smaller;"> a JSON object holding a bio data about a specific director, example:<br>
+            {director: 'Martin Scorsese ',<br>
+            biography:'bio, birth year, death year, filmography'}
           </td>
         </tr>
       </table>

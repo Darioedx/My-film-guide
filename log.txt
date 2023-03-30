@@ -323,3 +323,6 @@
 ::1 - - [29/Mar/2023:14:19:36 +0000] "DELETE /users/mymovies/1/The%20front HTTP/1.1" 200 38 "-" "PostmanRuntime/7.31.3"
 ::1 - - [29/Mar/2023:14:30:52 +0000] "DELETE /users/mymovies/1/The%20front HTTP/1.1" 200 39 "-" "PostmanRuntime/7.31.3"
 ::1 - - [29/Mar/2023:14:50:16 +0000] "DELETE /users/1 HTTP/1.1" 200 24 "-" "PostmanRuntime/7.31.3"
+::1 - - [29/Mar/2023:16:50:09 +0000] "GET /movies/directors/Martin%20Ritt HTTP/1.1" 200 92 "-" "PostmanRuntime/7.31.3"
+::1 - - [29/Mar/2023:17:00:00 +0000] "DELETE /ussrs/1 HTTP/1.1" 404 149 "-" "PostmanRuntime/7.31.3"
+::1 - - [29/Mar/2023:17:00:36 +0000] "DELETE /users/1 HTTP/1.1" 200 24 "-" "PostmanRuntime/7.31.3"

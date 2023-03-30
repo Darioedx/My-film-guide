@@ -56,7 +56,7 @@ app.get('/movies/genres/:genreName', (req, res) => {
 //get all data of a specific movie by director and or/ actors
 app.get('/movies/directors/:directorName', (req, res) => {
 
-  res.send('Successful GET request returning list of movies that match with the requested director');
+  res.send('Successful GET request returning data about a director (bio, birth year, death year) by name');
   
     });
 

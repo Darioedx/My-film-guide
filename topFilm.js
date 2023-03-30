@@ -20,7 +20,7 @@ exports.topFilms = [
     actors: ['Mia Farrow', 'John Cassavetes', 'Ruth Gordon']
   },
  {
-     id: 2,
+    id: 2,
     title: 'The Big Lebowski',
     director: 'Joel Coen',
     genre: 'Comedy/Drama',
