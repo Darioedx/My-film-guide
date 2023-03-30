@@ -114,7 +114,7 @@
           </td >
           <tr>
             <td> Allow user change name and lastname</td>
-            <td>/users/[id] </td>
+            <td>/users/mymovies/[id] </td>
             <td>PUT </td>
             <td style="font-size:smaller;">JSON object holding data about new name to be changed<br>
               { name:	"pepenew",<br>
@@ -127,9 +127,9 @@
             </td >
             <tr style="background-color: aquamarine;">
               <td> Allow user add movie to favorits</td>
-              <td>/users/mymovies/[id] </td>
+              <td>/users/mymovies/[id]/[movieTitle] </td>
               <td>PUT </td>
-              <td style="font-size:smaller;">JSON object holding data about new name to be changed<br>
+              <td style="font-size:smaller;">JSON object holding the movie title to be added<br>
                 { favMovies:	"El secreto de tus ojos",}<br>
                  
                </td>
@@ -137,6 +137,24 @@
                 " ¡¡¡'El secreto de tus ojos' have been added!!!"<br>
                
               </td >
+              <tr>
+                <td> Allow user deregister/td>
+                <td>/users/[id] </td>
+                <td>DELETE </td>
+                <td >None </td>
+                <td style="font-size:smaller;">a text that confirm that a user has been removed<br>
+                  " ¡¡¡' Pepe' have been removed from users list!!"           
+                </td >
+                <tr style="background-color: aquamarine;">
+                  <td> Allow user remove movie from favorits</td>
+                  <td>/users/mymovies/[id]/[movieTitle] </td>
+                  <td>DELETE </td>
+                  <td>None</td>
+                  <td style="font-size:smaller;">a text that confirm that a movie has been removed<br>
+                    	"¡¡¡'El secreto de tus ojos' have been removed form movies list!!!"<br>
+                     
+                   </td>
+                                   
       </table>
    <br><br><br>   
 </body>
