@@ -30,9 +30,8 @@ app.use(morgan('combined', {stream: accessLogStream}));
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(methodOverride());
-//
 
-//get movies titles list
+////get movies titles list///////
 let titles = [];
 app.get('/movies', (req, res) => {
   Movies.find().then((films)=>{
@@ -44,11 +43,10 @@ app.get('/movies', (req, res) => {
     console.error(error);
     res.status(500).send('Error: ' + error);
   })
-  //res.json(titles);
   
 });
 
-//get all data of a specific movie ,search by title
+//get all data of a specific movie ,search by title/////
 app.get('/movies/:title', (req, res) => {
   const {title}= req.params;
   Movies.findOne({Title:title}).then((movie )=> {
@@ -84,15 +82,12 @@ app.get('/movies/genres/:genreName', (req, res) => {
         }}).catch((error) => {
             console.error(error);
             res.status(500).send('Error: ' + error)});
-   
-    //res.json(titles);
-    
   });
  
   
   
 
-//get all data of a specific movie by director and or/ actors
+//get bio and movies of a particular director,search by director name
 app.get('/movies/directors/:directorName', (req, res) => {
 
   const {directorName}= req.params;
@@ -145,10 +140,6 @@ app.post('/users', function(req, res){
       console.error(error);
       res.status(500).send('Error: ' + error);
     });
-  //name:"",
-  //movie:"",
-  //id:""
-  
   
   
   });  
@@ -184,45 +175,55 @@ app.put('/users/:Username', (req, res) => {
     
   
 });
-  //add movie title to user list
-  app.put('/users/mymovies/:id', function(req, res){
-   
-    const {id}= req.params;
-    const newTopfilm = req.body;//buscar user, buscar peli, agregar peli
-    let user = topFilms.users.find((user)=> user.id == id);//diferente data type, ojo!!primero encuentro usuario
-    if (user){
-     user.movieList.push(newTopfilm.title);
-    // return res.status(200).json(user); 
-     return res.status(200).send(`${newTopfilm.title} have been added to uuser ${id}`); 
-  
-    }
-    });
-//remove movie
-app.delete('/users/mymovies/:id/:movieTitle', function(req, res){
-   
-  const {id, movieTitle}= req.params;
- 
-  let user = topFilms.users.find((user)=> user.id == id);//diferente data type, ojo!!primero encuentro usuario
-  if (user){
-      user.movieList = user.movieList.filter((movie)=> movie !== movieTitle);
-      return res.status(200).send(`${movieTitle} have been removed from user ${id}`); 
-
-  }
+  //add movie id title to user list
+  app.put('/users/:Username/movies/:MovieID', function(req, res){
+    Users.findOneAndUpdate({ Username: req.params.Username  }, { $push:
+      {
+        FavoritesMovies:  req.params.MovieID 
+      }
+    },
+    { new: true }).then((updtMovielist) => {
+      
+        res.json(updtMovielist)}).catch((err) => {
+          console.error(err);
+          res.status(500).send('Error: ' + err);
+        });;
+      
     
+  });
+    
+    
+//remove movie
+app.delete('/users/:Username/movies/:MovieID', function(req, res){
+   
+  Users.findOneAndUpdate({ Username: req.params.Username  }, { $pull:
+    {
+      FavoritesMovies:  req.params.MovieID 
+    }
+  },
+  { new: true }).then((updtMovielist) => {
+    
+      res.json(updtMovielist)}).catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });;
 });
 //Delete user
-app.delete('/users/:id', function(req, res){
-   
-  const {id}= req.params;
- 
-  let user = topFilms.users.find((user)=> user.id == id);//diferente data type, ojo!!primero encuentro usuario
-  if (user){
-      topFilms.users = topFilms.users.filter((user)=> user.id != id);
-      return res.status(200).send(`User ${id} have been deleted`); 
-
-  }
-    
+app.delete('/users/:Username', function(req, res){
+    Users.findOneAndRemove({ Username: req.params.Username })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.Username + ' was not found');
+      } else {
+        res.status(200).send(req.params.Username + ' was deleted.');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
+
      
   
   
