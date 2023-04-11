@@ -1,5 +1,14 @@
 
-let topFilms = require('./topFilm.js');// import my coustom module
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+const Movies = Models.Movie;
+const Users = Models.User;
+
+const uri = "mongodb+srv://Dario40669995:Dario40669995@cluster0.bemi4wp.mongodb.net/moviesDatabase?retryWrites=true&w=majority";
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
 
 uuid = require('uuid');
 const express = require('express');
@@ -26,8 +35,15 @@ app.use(methodOverride());
 //get movies titles list
 let titles = [];
 app.get('/movies', (req, res) => {
-  topFilms.topFilms.forEach((item)=> titles.push(item.title));
-  res.status(200).json(titles);
+  Movies.find().then((films)=>{
+  films.forEach((item) => {
+    titles.push(item.Title)
+  });
+  res.status(200).json(titles)})
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send('Error: ' + error);
+  })
   //res.json(titles);
   
 });
@@ -62,26 +78,55 @@ app.get('/movies/directors/:directorName', (req, res) => {
 
 //create new user 
 app.post('/users', function(req, res){
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
   //name:"",
   //movie:"",
   //id:""
   
-  const newUser = req.body;
-  if (newUser.name){
-   newUser.id= uuid.v4();
-   return res.status(201).json(newUser); 
-
-  }
-  });
-
   
+  
+  });  
+app.get('/users/', (req, res) => {
+  Users.find()
+    .then((user) => {
+      
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+    
+});
 //update user info
 app.put('/users/:id', function(req, res){
   //name:"",
     //id:""
   const {id}= req.params;  
   const newName = req.body;
-  let user = topFilms.users.find((user)=> user.id == id);//diferente data type, ojo!!
+  let user = Users.find((user)=> user.id == id);//diferente data type, ojo!!
   if (user.id){
    user.name = newName.name ;
    return res.status(200).json(user); 
@@ -151,3 +196,10 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
   console.log('Your app is listening on port 8080.');
 });
+
+
+
+
+
+
+
