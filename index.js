@@ -48,31 +48,75 @@ app.get('/movies', (req, res) => {
   
 });
 
-//get all data of a specific movie search by title
+//get all data of a specific movie ,search by title
 app.get('/movies/:title', (req, res) => {
   const {title}= req.params;
-  const movieData = topFilms.topFilms.find((movie )=> movie.title === title);
+  Movies.findOne({Title:title}).then((movie )=> {
 
-  if (movieData){
-     return res.status(200).json(movieData);
+  if (movie){
+    
+     return res.status(200).json(movie)
       
-    }
-    else{
-       res.status(400).send("NOT FOUND in my top 10!!!!");
-    }
+  }else{
+      return res.status(404).send('No movie with this name: ' + title);
+
+    }}).catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
     });
+  });
 
 //get list of movies of a particular genre
 app.get('/movies/genres/:genreName', (req, res) => {
-
-  res.send('Successful GET request returning list of movies that match with the requested genre');
+  const {genreName}= req.params;
+  Movies.find({'Genre.Name':genreName}).then((movie )=>{
+    
+     let equalGenre = [];
+      movie.forEach((item) => {
+      equalGenre.push(item.Title)
+      })
+      if (equalGenre.length < 1)
+      {   
+        return res.status(400).send('No movie found in that genre');
+      } 
+      else{
+        res.status(200).json(equalGenre)
+        }}).catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error)});
+   
+    //res.json(titles);
+    
+  });
+ 
   
-    });
+  
 
 //get all data of a specific movie by director and or/ actors
 app.get('/movies/directors/:directorName', (req, res) => {
 
-  res.send('Successful GET request returning data about a director (bio, birth year, death year) by name');
+  const {directorName}= req.params;
+  Movies.find({'Director.Name':directorName}).then((movie )=>{
+     let directorBIO = []
+     let directorMovies = [];
+      movie.forEach((item) => {
+        directorMovies.push(item.Title)
+        if (directorBIO.length < 1){
+            directorBIO= item.Director;
+        }
+         
+      })
+      if (directorMovies.length < 1)
+      {   
+        return res.status(404).send('No movie found');
+      } 
+      else{
+        total = [directorBIO,directorMovies]//importante los valores en array antes de pasarcelo a json ya que json solo me acepta una array
+        res.status(200).json(total)
+        }}).catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error)});
+      
   
     });
 
@@ -121,18 +165,25 @@ app.get('/users/', (req, res) => {
     
 });
 //update user info
-app.put('/users/:id', function(req, res){
-  //name:"",
-    //id:""
-  const {id}= req.params;  
-  const newName = req.body;
-  let user = Users.find((user)=> user.id == id);//diferente data type, ojo!!
-  if (user.id){
-   user.name = newName.name ;
-   return res.status(200).json(user); 
 
-  }
-  });
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+    {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  { new: true }).then((updatedUser) => {
+    
+      res.json(updatedUser)}).catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });;
+    
+  
+});
   //add movie title to user list
   app.put('/users/mymovies/:id', function(req, res){
    
