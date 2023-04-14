@@ -1,39 +1,46 @@
 
+//import and conect to db
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
-
 const uri = "mongodb+srv://Dario40669995:Dario40669995@cluster0.bemi4wp.mongodb.net/moviesDatabase?retryWrites=true&w=majority";
-
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-
-
+//
 uuid = require('uuid');
 const express = require('express');
 var morgan = require('morgan');
 var fs = require('fs'); // import built in node modules fs and path 
 var path = require('path');
 const app = express();
+
+
 // create a write stream (in append mode)
 // a ‘log.txt’ file is created in root directory
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
 
+//// Parsing incoming requests
 const bodyParser = require('body-parser');
+
 var methodOverride = require('method-override');// needed for err handlr
 
 // setup the logger
 app.use(morgan('combined', {stream: accessLogStream}));
 
-//
+//midleware
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(methodOverride());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//import and setup passportjs and auth.js
+let auth = require('./auth')(app)//esto importa '/login' que esta en auth
+const passport = require('passport');
+require('./passport');
 
 ////get movies titles list///////
 let titles = [];
-app.get('/movies', (req, res) => {
+app.get('/movies',passport.authenticate('jwt', { session: false }),(req, res) => {
   Movies.find().then((films)=>{
   films.forEach((item) => {
     titles.push(item.Title)
@@ -143,18 +150,7 @@ app.post('/users', function(req, res){
   
   
   });  
-app.get('/users/', (req, res) => {
-  Users.find()
-    .then((user) => {
-      
-      res.json(user);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-    
-});
+
 //update user info
 
 app.put('/users/:Username', (req, res) => {
