@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 const mongoose = require('mongoose');
 
 let movieSchema = mongoose.Schema({
@@ -26,6 +28,14 @@ let userSchema = mongoose.Schema({
     FavoritesMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]});
 
 
+
+    userSchema.statics.hashPassword = (password) => {
+      return bcrypt.hashSync(password, 10);
+    };
+    
+    userSchema.methods.validatePassword = function(password) {///Don't use arrow functions when defining instance methods. 
+      return bcrypt.compareSync(password, this.Password);//. Arrow functions explicitly prevent binding this,
+    };
 
 let Movie = mongoose.model('Movie', movieSchema);
 
