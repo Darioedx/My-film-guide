@@ -13,11 +13,8 @@ let Users = Models.User,
   passwordField: 'Password'
   }, (username, password, callback) => {
     console.log(username + '  ' + password);
-    Users.findOne({ Username: username}, (error, user) => {
-      if (error) {
-        console.log(error);
-        return callback(error);
-      }
+    Users.findOne({ Username: username}).then((user) => {
+      
   
       if (!user) {
         console.log('incorrect username');
