@@ -27,15 +27,14 @@ let userSchema = mongoose.Schema({
     Birthday: Date,
     FavoritesMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]});
 
+ 
+userSchema.statics.hashPassword = (password) => {
+  return bcrypt.hashSync(password, 10);
+};
 
-
-    userSchema.statics.hashPassword = (password) => {
-      return bcrypt.hashSync(password, 10);
-    };
-    
-    userSchema.methods.validatePassword = function(password) {///Don't use arrow functions when defining instance methods. 
-      return bcrypt.compareSync(password, this.Password);//. Arrow functions explicitly prevent binding this,
-    };
+userSchema.methods.validatePassword = function(password) {
+  return bcrypt.compareSync(password, this.Password);
+};  
 
 let Movie = mongoose.model('Movie', movieSchema);
 

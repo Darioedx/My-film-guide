@@ -6,34 +6,38 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const uri = "mongodb+srv://Dario40669995:Dario40669995@cluster0.bemi4wp.mongodb.net/moviesDatabase?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-//cors beefore auth=require(auth)(app)  and beefore route middleware////////////////////////////
-const cors = require('cors');
-app.use(cors());
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
-      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null, true);
-  }
-}));
-////////////////////////////////////////////////////////////////////////////////////////////////
-
+//
 uuid = require('uuid');
 const express = require('express');
 var morgan = require('morgan');
 var fs = require('fs'); // import built in node modules fs and path 
 var path = require('path');
 const app = express();
-//import and setup passportjs and auth.js
-let auth = require('./auth')(app)//esto importa '/login' que esta en auth
-const passport = require('passport');
-require('./passport');
+
+const cors = require("cors");
+let allowedOrigins = [
+    "http://localhost:8080",
+   
+    "http://testsite.com",
+    
+];
+
+app.use(
+    cors({
+        origin: (origin, callback) => {
+            if (!origin) return callback(null, true);
+            if (allowedOrigins.indexOf(origin) === -1) {
+                // If a specific origin isn’t found on the list of allowed origins
+                let message =
+                    "The CORS policy for this application doesn’t allow access from origin " +
+                    origin;
+                return callback(new Error(message), false);
+            }
+            return callback(null, true);
+        },
+    })
+);
+
 
 // create a write stream (in append mode)
 // a ‘log.txt’ file is created in root directory
@@ -47,11 +51,16 @@ var methodOverride = require('method-override');// needed for err handlr
 // setup the logger
 app.use(morgan('combined', {stream: accessLogStream}));
 
-//route middleware:
+//midleware
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//import and setup passportjs and auth.js
+let auth = require('./auth')(app)
+const passport = require('passport');
+require('./passport');
 
 ////get movies titles list///////
 let titles = [];
@@ -139,7 +148,8 @@ app.get('/movies/directors/:directorName', (req, res) => {
 
 //create new user 
 app.post('/users', function(req, res){
-  let hashedPassword = Users.hashPassword(req.body.Password);//encripting password
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
