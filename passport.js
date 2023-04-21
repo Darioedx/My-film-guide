@@ -14,6 +14,8 @@ let Users = Models.User,
   }, (username, password, callback) => {
     console.log(username + '  ' + password);
      Users.findOne({ Username: username}).then((user) => {
+
+   
    
       if (!user) {
         console.log('incorrect username');
@@ -30,7 +32,7 @@ let Users = Models.User,
     });
   }));
  
-
+//nota: 'doneCB' puede tener cualquier otro nombre, es pra verificar que la tarea esta cumplida o no, esta definida dentro del constructor 'localStrategy'
 //
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),

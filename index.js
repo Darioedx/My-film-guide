@@ -149,7 +149,7 @@ app.get('/movies/directors/:directorName', (req, res) => {
 //create new user 
 app.post('/users', function(req, res){
 
-  let hashedPassword = Users.hashPassword(req.body.Password);
+  let hashedPassword = Users.hashPassword(req.body.Password, 10);
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {

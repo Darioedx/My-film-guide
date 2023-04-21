@@ -28,8 +28,8 @@ let userSchema = mongoose.Schema({
     FavoritesMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]});
 
  
-userSchema.statics.hashPassword = (password) => {
-  return bcrypt.hashSync(password, 10);
+userSchema.statics.hashPassword = (password, salt) => {
+  return bcrypt.hashSync(password, salt);
 };
 
 userSchema.methods.validatePassword = function(password) {
@@ -41,3 +41,4 @@ let Movie = mongoose.model('Movie', movieSchema);
 let User = mongoose.model('User', userSchema);
 module.exports.Movie = Movie;
 module.exports.User = User;
+
