@@ -13,7 +13,7 @@ var morgan = require('morgan');
 var fs = require('fs'); // import built in node modules fs and path 
 var path = require('path');
 const app = express();
-
+const { check, validationResult } = require('express-validator');
 const cors = require("cors");
 let allowedOrigins = [
     "http://localhost:8080",
@@ -147,7 +147,21 @@ app.get('/movies/directors/:directorName', (req, res) => {
     });
 
 //create new user 
-app.post('/users', function(req, res){
+app.post('/users', 
+//s.s.validation
+[
+  check('Username', 'Username is required').isLength({min: 4}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+
+// check the validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
 
   let hashedPassword = Users.hashPassword(req.body.Password, 10);
   Users.findOne({ Username: req.body.Username })
@@ -179,7 +193,19 @@ app.post('/users', function(req, res){
 
 //update user info
 
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:Username',
+//s.s.validation
+[
+  check('Username', 'Username is required').isLength({min: 4}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+],(req, res) => {// check the validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
@@ -267,10 +293,10 @@ app.use((err, req, res, next) => {
 });
 
 //port
-app.listen(8080, () => {
-  console.log('Your app is listening on port 8080.');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
 });
-
 
 
 

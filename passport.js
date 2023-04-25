@@ -14,10 +14,9 @@ let Users = Models.User,
   }, (username, password, callback) => {
     console.log(username + '  ' + password);
      Users.findOne({ Username: username}).then((user) => {
-
+     
    
-   
-      if (!user) {
+    if (!user) {
         console.log('incorrect username');
         return callback(null, false, {message: 'Incorrect username or password.'});
       }
@@ -29,7 +28,8 @@ let Users = Models.User,
     }
       console.log('finished');
       return callback(null, user);
-    });
+    }) .catch((error) => {
+      return callback(error)});
   }));
  
 //nota: 'doneCB' puede tener cualquier otro nombre, es pra verificar que la tarea esta cumplida o no, esta definida dentro del constructor 'localStrategy'
