@@ -18,7 +18,8 @@ const { check, validationResult } = require('express-validator');
 const cors = require("cors");
 let allowedOrigins = [
     "http://localhost:8080",
-   
+    "https://lit-refuge-74166.herokuapp.com",
+    "https://git.heroku.com/lit-refuge-74166.git",
     "http://testsite.com",
     
 ];
