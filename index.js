@@ -18,9 +18,10 @@ const { check, validationResult } = require('express-validator');
 const cors = require("cors");
 let allowedOrigins = [
     "http://localhost:8080",
-    "https://lit-refuge-74166.herokuapp.com",
-    "https://git.heroku.com/lit-refuge-74166.git",
+    "https://git.heroku.com/movies-guide.git",
+    "https://movies-guide.herokuapp.com",
     "http://testsite.com",
+
     
 ];
 
@@ -64,19 +65,17 @@ let auth = require('./auth')(app)
 const passport = require('passport');
 require('./passport');
 
-////get movies titles list///////
-let titles = [];
-app.get('/movies',passport.authenticate('jwt', { session: false }),(req, res) => {
-  Movies.find().then((films)=>{
-  films.forEach((item) => {
-    titles.push(item.Title)
-  });
-  res.status(200).json(titles)})
-  .catch((error) => {
-    console.error(error);
-    res.status(500).send('Error: ' + error);
-  })
-  
+
+//return a list of all movies
+app.get("/movies", passport.authenticate('jwt',{session:false}), (req, res) => {
+    Movies.find()
+        .then((movies) => {
+            res.status(200).json(movies);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send("Error: " + err);
+        });
 });
 
 //get all data of a specific movie ,search by title/////
@@ -274,20 +273,24 @@ app.delete('/users/:Username',passport.authenticate('jwt', { session: false }), 
     });
 });
 
-     
+ //Get all users
+app.get("/users", passport.authenticate('jwt',{session:false}), (req, res) => {
+  Users.find()
+      .then((users) => {
+          res.status(201).json(users);
+      })
+      .catch ((err) => {
+          console.error(err);
+          res.status(500).send("Error: " + err);
+      });
+});    
   
   
-  
-  
- 
-
 // error hadlr
 
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
-
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
