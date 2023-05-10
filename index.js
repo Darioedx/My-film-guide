@@ -21,7 +21,7 @@ let allowedOrigins = [
     "https://git.heroku.com/movies-guide.git",
     "https://movies-guide.herokuapp.com",
     "http://testsite.com",
-
+    "http://localhost:1234"
     
 ];
 
